@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netflix 대한민국 - 영화에 대한 모든 것</title>
+    <link rel="shortcut icon" type="image⁄x-icon" href="titleLogo.jpg">
+    <link rel="stylesheet" href="start.css">
+</head>
+
+<body>
+
+    <button id="loginButton">로그인</button>
+    <nav id="topMenu">
+        <ul>
+            <img id="logo" class="menuLink" src="netflixLogo.png"><br>
+            <li><a class="menuLink" href="#">About us</a></li>
+            <li><a class="menuLink" href="contact.html">Friend List</a></li>
+            <li><a class="menuLink" href="search.html">Search Movies</a></li>
+            <li><a class="menuLink" href="index.html"onclick="openQuiz(event);">Quiz</a></li>
+            <li><a class="menuLink" href="MovieInfo.html">Movies</a></li>
+            <li><a class="menuLink" href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+    <div id="movieInfoPanel">
+        <br><br>
+        <h2 style="color: white; float:left;margin: 5px;">나의 관심 영화</h2>
+        <select id="selectBox" name="language" style="margin-left: 550px;">
+            <option value="none">=== 영화 선택 ===</option>
+            <option value="chinesse" hidden>영어</option>
+            <option value="all">전체 영화</option>
+            <option value="korean">한국어</option>
+            <option value="english">영어</option>
+            <option value="japanese">일본어</option>
+        </select>
+
+        <button style="margin-top: -10px;" id="loginButton" onclick="addMovie(event);">추가</button><br>
+        <button style="margin-top: 10px" id="SearchButton" onclick="searchMovie(event);">조회</button><br>
+        <br><br><br><br>
+
+        <div id="movieAlbum">
+            <div id="openSize">
+            </div>
+
+            <div id="selDiv1" style="display: none;">
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var div = document.querySelector("#movieAlbum");
+        var SelDiv1 = document.querySelector("#selDiv1");
+        div.innerHTML = "";
+
+        let myMovieArray = [
+            {
+                "albumId": 1,
+                "id": 1,
+                "title": "HarryPotter",
+                "url": "poster1.jpg",
+                "thumbnailUrl": "poster1.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 2,
+                "title": "NoteBook",
+                "url": "poster4.jpg",
+                "thumbnailUrl": "poster4.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 51,
+                "title": "PARASITE",
+                "url": "poster5.jpg",
+                "thumbnailUrl": "poster5.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 52,
+                "title": "The Handmaiden",
+                "url": "poster6.jpg",
+                "thumbnailUrl": "poster6.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 127,
+                "title": "magnam quia sed aspernatur",
+                "url": "poster7.jpg",
+                "thumbnailUrl": "poster7.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 128,
+                "title": "벼랑 위의 포뇨",
+                "url": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg",
+                "thumbnailUrl": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 129,
+                "title": "혐오스런 마츠코의 일생",
+                "url": "poster11.jpeg",
+                "thumbnailUrl": "poster11.jpeg"
+            },
+
+        ];
+
+        var newMovie = [
+            {
+                "albumId": 1,
+                "id": 6,
+                "title": "HER",
+                "url": "insertPoster.jpg",
+                "thumbnailUrl": "insertPoster.jpg"
+            }, {
+                "albumId": 1,
+                "id": 6,
+                "title": "The Devils wears Prada",
+                "url": "poster3.jpg",
+                "thumbnailUrl": "poster3.jpg"
+            }, {
+                "albumId": 3,
+                "id": 6,
+                "title": "100 엔걸 스즈코",
+                "url": "poster11.jpg",
+                "thumbnailUrl": "poster11.jpg"
+            }, {
+                "albumId": 2,
+                "id": 6,
+                "title": "친절한 금자씨",
+                "url": "poster12.jpg",
+                "thumbnailUrl": "poster12.jpg"
+            }, {
+                "albumId": 2,
+                "id": 6,
+                "title": "윤희에게",
+                "url": "poster13.jpg",
+                "thumbnailUrl": "poster13.jpg"
+            }];
+
+        // Display picures
+        myMovieArray.forEach(function (currentMovie) {
+
+            let movie = document.createElement("img");
+            movie.src = currentMovie.thumbnailUrl;
+            movie.alt = currentMovie.title;
+            div.appendChild(movie);
+
+            movie.addEventListener("click", function (event) {
+                console.log(movie+"click is possible");
+                div.innerHTML="";
+                //var index = myMovieArray.findIndex(i => i.title === movie.title); 
+                var index = myMovieArray.findIndex(i => i.title == currentMovie.title); 
+                //myMovieArray = myMovieArray.slice(index);
+                myMovieArray.splice(index,1);
+                alert(currentMovie.title+"이 나의 관심영화에서 삭제되었습니다");
+
+                myMovieArray.forEach(function (currentMovie) {
+
+                    let movie1 = document.createElement("img");
+                    movie1.src = currentMovie.thumbnailUrl;
+                    movie1.alt = currentMovie.title;
+                    div.append(movie1);
+                    sizeOfMovie(movie1);
+                });
+                // sizeOfMovie(movie1);
+            });
+            sizeOfMovie(movie);
+        });
+
+        function sizeOfMovie(movie) {
+            
+            movie.addEventListener("mouseleave", function (event) {
+                console.log(movie.id + "마우스 리브");
+                console.log(movie);
+                movie.style.width = "200px", movie.style.height = "300px";
+            });
+
+            movie.addEventListener("mouseover", function (event) {
+                console.log(movie.id + "마우스 오버");
+                console.log(movie);
+                movie.style.width = "400px", movie.style.height = "500px";
+                movie.style.border = "white";
+                
+            });
+
+          
+        };
+
+        var countMovie = 0;
+        function addMovie(evt) {
+            // myPicturesArray.forEa(function(serchImage){
+            let movie = document.createElement("img");
+            // 관심있는 영화가 12개를 넘었을 경우
+            if (myMovieArray.length < 12) {
+
+
+                myMovieArray.push(newMovie[countMovie]);
+                movie.src = newMovie[countMovie].url;
+                movie.setAttribute.src = newMovie[countMovie].url;
+                movie.setAttribute.thumbnailUrl = newMovie[countMovie].thumbnailUrl;
+                movie.alt = newMovie[countMovie].title;
+
+                div.append(movie);
+                alert(newMovie[countMovie].title+"를 관심영화로 추가하셨습니다");
+                countMovie++;
+            }
+            else {
+                alert("나의 관심 영화는 최대 12개까지 가능합니다.");
+            }
+            sizeOfMovie(movie);
+        };
+
+        function searchMovie(evt) {
+
+            var select = document.getElementById("selectBox");
+            var selctedValue = select.options[select.selectedIndex].value;
+            console.log(selctedValue);
+
+            //div.style.display ="none";
+
+            div.innerHTML = "";
+
+            let selectedMovie = [];
+            if (selctedValue === "english") //albumId =1
+            {
+                {
+                    myMovieArray.forEach(function (selectMovie) {
+
+                        if (selectMovie.albumId == 1) {
+
+                            let movie = document.createElement("img");
+                            movie.src = selectMovie.thumbnailUrl;
+                            movie.alt = selectMovie.title;
+                            div.append(movie);
+
+                            sizeOfMovie(movie);
+                        }
+
+                    });
+                }
+            }
+            else if (selctedValue === "korean") //albumId ==2
+            {
+                myMovieArray.forEach(function (selectMovie) {
+
+                    if (selectMovie.albumId == 2) {
+                        let movie = document.createElement("img");
+                        movie.src = selectMovie.thumbnailUrl;
+                        movie.alt = selectMovie.title;
+                        div.append(movie);
+
+                        sizeOfMovie(movie);
+                    }
+                });
+            }
+            else if (selctedValue === "japanese") //albumId ==3
+            {
+                myMovieArray.forEach(function (selectMovie) {
+
+                    if (selectMovie.albumId == 3) {
+                        let movie = document.createElement("img");
+                        movie.src = selectMovie.thumbnailUrl;
+                        movie.alt - selectMovie.title;
+                        div.append(movie);
+
+                        sizeOfMovie(movie);
+                    }
+                });
+            }
+            else if (selctedValue === "all")
+            {
+                myMovieArray.forEach(function (selectMovie) {
+                let movie = document.createElement("img");
+                        movie.src = selectMovie.thumbnailUrl;
+                        movie.alt - selectMovie.title;
+                        div.append(movie);
+
+                        sizeOfMovie(movie);
+                    });
+            }
+            else if(selctedValue === "none")
+            {
+                alert("조회 할 항목이 없습니다");
+            }
+
+
+        };
+        
+    </script>
+</body>
+
+</html>

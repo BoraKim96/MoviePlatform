@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Netflix 대한민국 - 영화에 대한 모든 것</title>
+    <link rel="shortcut icon" type="image⁄x-icon" href="titleLogo.jpg">
+    <link rel="stylesheet" href="start.css">
+</head>
+
+<body>
+
+    <button id="loginButton">로그인</button>
+    <nav id="topMenu">
+        <ul>
+            <img id="logo" class="menuLink" src="netflixLogo.png"><br>
+            <li><a class="menuLink" href="#">About us</a></li>
+            <li><a class="menuLink" href="contact.html">Friend List</a></li>
+            <li><a class="menuLink" href="search.html">Search Movies</a></li>
+            <li><a class="menuLink" href="index.html" onclick="openQuiz(event);">Quiz</a></li>
+            <li><a class="menuLink" href="MovieInfo.html">Movies</a></li>
+            <li><a class="menuLink" href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+
+
+    <div id="movieInfoPanel">
+        <br><br><br><br>
+
+
+        <section id="form">
+            <label for="firstName">First Name : </label><input type="text" name="firstName" id="input1"></input>
+            <br>
+            <label for="lastName">Last Name :</label><input type="text" name="lastName" id="input2"></input>
+            <br>
+            <label for="phoneNumber">Phone Number :</label><input type="tel" name="phoneNum" id="input3"></input>
+            <br>
+            <button id="addbtn">저장</button>
+            <button id="listbtn">조회</button>
+
+        </section>
+        <br>
+
+        <section id="listOfContact">
+            <br>
+            <table id="list1">
+                <tbody id="hi">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                    </tr>
+                    <div id="test">
+                        <table id="list">
+                            <!-- <tbody id ="hi">
+                    <tr > 
+                        <th >First Name</th>
+                        <th >Last Name</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </tbody> -->
+                            <tbody id="tableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
+        </section>
+    </div>
+
+    <script>
+        window.onload = init;
+
+        var contactArray = [
+            c0 = {
+                givenName: "Kim",
+                familyName: "Bora",
+                phoneNum: "01033947742"
+            }
+        ];
+
+        class Contact {
+            constructor(givenName, familyName, phoneNum) {
+                this.givenName = givenName;
+                this.familyName = familyName;
+                this.phoneNum = phoneNum;
+            }
+        }
+
+        class ContactManager {
+            constructor(arrayName, tableId) {
+                this.arrayName = arrayName;
+                this.tableId = tableId;
+            }
+
+            add(c) {
+                this.arrayName.push(c);
+            }
+
+            list(i) {
+                return "<tr><td>" + this.arrayName[i].givenName + "</td><td> " + this.arrayName[i].familyName + "</td><td> " + this.arrayName[i].phoneNum + "</td> </tr>";
+            }
+        }
+        var div = document.getElementById('test');
+        function init() {
+            var db = new ContactManager(contactArray, "list");
+
+            var input1 = document.getElementById('input1');
+            var input2 = document.getElementById('input2');
+            var input3 = document.getElementById('input3');
+
+            var btn = document.getElementById('addbtn');
+            btn.addEventListener("click", function () {
+                var c = new Contact(input1.value, input2.value, input3.value);
+                db.add(c);
+                console.log(contactArray);
+                input1.value = "";
+                input2.value = "";
+                input3.value = "";
+            });
+
+            var listB = document.getElementById('listbtn');
+            var table = document.querySelector("#list");
+            var tableRow = document.querySelector("#row");
+
+
+            var header = document.querySelector("#hi");
+
+            listB.addEventListener("click", function () {
+
+                //list() =null;
+                document.getElementById(db.tableId).innerHTML = "";
+
+                for (i = 0; i <= contactArray.length; i++) {
+                    //row.innerHTML +=db.list(i);
+                    document.getElementById(db.tableId).innerHTML += db.list(i);
+
+                }
+            });
+
+
+        };
+    </script>
+</body>
+
+</html>

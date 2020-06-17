@@ -1,0 +1,211 @@
+body{
+    width: 1350px;
+    background-image: url(mainPage.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#logo{
+    margin: 10px;
+}
+#topMenu {
+    height: 1200px;
+    width: 250px;
+    
+    float: left;
+    background-color: black;
+   /* margin: 0 auto;
+    text-align: center;*/
+}
+
+.logo{
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#topMenu ul li {
+    list-style: none;
+    color: white;
+    /*background-color: #2d2d2d; */
+    line-height: 30px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+button{
+    margin: 10px;
+    height: 35px;
+    background-color: #e50914;
+    color:white;
+    font-weight: 400;
+    font-size: 1rem;
+    border-radius: 6px;
+   
+}
+#loginButton{
+    float: right;
+}
+
+#topMenu .menuLink {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 150px;
+    height: 44px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Trebuchet MS", Dotum, Arial;
+}
+
+#topMenu .menuLink:hover {
+    color: red;
+    background-color: #4d4d4d;
+}
+
+#questPanel{
+    background-color:rgba( 0, 0, 0, 0.8 );
+    width: 600px;
+    height: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Trebuchet MS", Dotum, Arial;
+    color: white;
+   
+}
+#mainContent
+{
+    margin: 0 auto;
+    text-align: center;
+    color:white;
+}
+
+#intro{
+    font-size: 75px;
+    font-weight: bold;
+    font-family: "Trebuchet MS", Dotum, Arial;
+    color:white;
+}
+
+#inputEmail{
+    width: 500px;
+    height: 60px;
+}
+
+#sendEmail{
+    width: 143.73px;
+    height: 60px;
+    margin: 0px;
+}
+/* 포스터 사진들 */
+#movieInfoPanel{
+    background-color:rgba( 0, 0, 0, 0.8 );
+    width: 1000px;
+    height: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Trebuchet MS", Dotum, Arial;
+    color: white;
+}
+
+img{
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+}
+
+#logo.menuLink{
+    height: 50px;
+    padding: 0px;
+}
+
+#openSize{
+    background-color:rgba( 0, 0, 0, 0.6 );
+    width: 1000px;
+    height: 990px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Trebuchet MS", Dotum, Arial;
+    color: white;
+}
+#addPanel{
+    background-color: black;
+    width:600px;
+    height: 600px;
+}
+
+#list, #list1{
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+#listOfContact{
+    width: 600px;
+    height: 600px;
+    background-color:rgba( 0, 0, 0, 0.8 );
+    margin: 0 auto;
+    text-align: center;
+    border: red 3px solid;
+    border-radius: 15px;
+    
+}
+
+table{
+    width: 500px;
+    /* //border: white 2px solid; */
+}
+th{
+    border: white 2px solid;
+    background-color: white;
+    color:black;
+}
+
+td{
+    color:white;
+    background-color: black;
+    border: white 2px solid;
+}
+
+#search{
+    width: 1200px;
+    height: 800px;
+    background-color:rgba( 0, 0, 0, 0.8 );
+    margin: 0 auto;
+    text-align: center;
+    border: red 3px solid;
+    border-radius: 15px;
+    color:white;
+}
+
+table,
+tr,
+td {
+    margin: auto;
+    text-align: center;
+}
+
+td {
+    padding: 8px;
+}
+
+#pageTable {
+    border-collapse: collapse;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    border: 10px solid black;
+    background-color: white;
+}
+
+td,
+th {
+    padding: 8px;
+    border: 3px solid black;
+    text-align: left;
+}
+
+tbody>tr:hover {
+    background-color: lightyellow;
+}

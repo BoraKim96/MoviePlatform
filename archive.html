@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Netflix 대한민국 - 영화에 대한 모든 것</title>
+    <link rel="shortcut icon" type="image⁄x-icon" href="titleLogo.jpg">
+    <link rel="stylesheet" href="start.css">
+    <title>Working with remote data</title>
+    <meta charset="utf-8" />
+    <!-- Polyfill in case your browser does not support the fetch API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.1/fetch.js"></script>
+</head>
+
+
+
+<body>
+
+    <button id="loginButton">로그인</button>
+    <nav id="topMenu">
+        <ul>
+            <img id="logo" class="menuLink" src="netflixLogo.png"><br>
+            <li><a class="menuLink" href="#">About us</a></li>
+            <li><a class="menuLink" href="contact.html">Friend List</a></li>
+            <li><a class="menuLink" href="search.html">Search Movies</a></li>
+            <li><a class="menuLink" href="index.html" onclick="openQuiz(event);">Quiz</a></li>
+            <li><a class="menuLink" href="MovieInfo.html">Movies</a></li>
+            <li><a class="menuLink" href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+
+    <div id="search">
+        <h1 id="info">Serach For Infromation of Movie</h1>
+        <p>Enter the Language [ex:한국어,일본어,영어]</p>
+        <input type="text" id="date" value="">
+        
+
+        <table id="pageTable">
+            <thead>
+                <tr>
+                    <th>영화이름</th>
+                    <th>영화 번호</th>
+                    <th>언어</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+            </tbody>
+        </table>
+        <button id="prev">&#60;&#60; prev</button>
+        <button id="next">next &#62;&#62;</button>
+
+        <br><br><br><br>
+        <div id="movie"></div>
+
+        <br><br>
+
+    </div>
+    <script>
+        
+        window.onload = init;
+        var newMovie = [
+            {
+                "albumId": 1,
+                "id": 138,
+                "title": "HER",
+                "url": "insertPoster.jpg",
+                "thumbnailUrl": "insertPoster.jpg"
+            }, {
+                "albumId": 1,
+                "id": 139,
+                "title": "The Devils wears Prada",
+                "url": "poster3.jpg",
+                "thumbnailUrl": "poster3.jpg"
+            }, {
+                "albumId": 3,
+                "id": 140,
+                "title": "100 엔걸 스즈코",
+                "url": "poster11.jpg",
+                "thumbnailUrl": "poster11.jpg"
+            }, {
+                "albumId": 2,
+                "id": 141,
+                "title": "친절한 금자씨",
+                "url": "poster12.jpg",
+                "thumbnailUrl": "poster12.jpg"
+            }, {
+                "albumId": 2,
+                "id": 142,
+                "title": "윤희에게",
+                "url": "poster13.jpg",
+                "thumbnailUrl": "poster13.jpg"
+            }, {
+                "albumId": 1,
+                "id": 1,
+                "title": "HarryPotter",
+                "url": "poster1.jpg",
+                "thumbnailUrl": "poster1.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 2,
+                "title": "NoteBook",
+                "url": "poster4.jpg",
+                "thumbnailUrl": "poster4.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 51,
+                "title": "PARASITE",
+                "url": "poster5.jpg",
+                "thumbnailUrl": "poster5.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 52,
+                "title": "The Handmaiden",
+                "url": "poster6.jpg",
+                "thumbnailUrl": "poster6.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 127,
+                "title": "벼랑 위의 포뇨",
+                "url": "poster7.jpg",
+                "thumbnailUrl": "poster7.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 128,
+                "title": "어바웃 타임",
+                "url": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg",
+                "thumbnailUrl": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 129,
+                "title": "혐오스런 마츠코의 일생",
+                "url": "poster11.jpeg",
+                "thumbnailUrl": "poster11.jpeg"
+            },{
+                "albumId": 1,
+                "id": 138,
+                "title": "HER",
+                "url": "insertPoster.jpg",
+                "thumbnailUrl": "insertPoster.jpg"
+            }, {
+                "albumId": 1,
+                "id": 139,
+                "title": "The Devils wears Prada",
+                "url": "poster3.jpg",
+                "thumbnailUrl": "poster3.jpg"
+            }, {
+                "albumId": 3,
+                "id": 140,
+                "title": "100 엔걸 스즈코",
+                "url": "poster11.jpg",
+                "thumbnailUrl": "poster11.jpg"
+            }, {
+                "albumId": 2,
+                "id": 141,
+                "title": "친절한 금자씨",
+                "url": "poster12.jpg",
+                "thumbnailUrl": "poster12.jpg"
+            }, {
+                "albumId": 2,
+                "id": 142,
+                "title": "윤희에게",
+                "url": "poster13.jpg",
+                "thumbnailUrl": "poster13.jpg"
+            }, {
+                "albumId": 1,
+                "id": 1,
+                "title": "HarryPotter",
+                "url": "poster1.jpg",
+                "thumbnailUrl": "poster1.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 2,
+                "title": "NoteBook",
+                "url": "poster4.jpg",
+                "thumbnailUrl": "poster4.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 51,
+                "title": "PARASITE",
+                "url": "poster5.jpg",
+                "thumbnailUrl": "poster5.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 52,
+                "title": "The Handmaiden",
+                "url": "poster6.jpg",
+                "thumbnailUrl": "poster6.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 127,
+                "title": "벼랑 위의 포뇨",
+                "url": "poster7.jpg",
+                "thumbnailUrl": "poster7.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 128,
+                "title": "어바웃 타임",
+                "url": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg",
+                "thumbnailUrl": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 129,
+                "title": "혐오스런 마츠코의 일생",
+                "url": "poster11.jpeg",
+                "thumbnailUrl": "poster11.jpeg"
+            }];
+            class Movie {
+            constructor(name, num, lan) {
+                this.name = name;
+                this. num = num;
+                this.lan = lan; 
+            }
+            //inner html for the table rows
+            createCells() {
+                return (
+                    "<td>" +
+                    this.name +
+                    "</td><td>" +
+                    this.num +
+                    "</td><td>" +
+                    this.lan +
+                    "</td>"
+                );
+            }
+        }
+
+        //an empty array for the movie objects
+        var movieList = [];
+        var movieCount, a, table;
+        var valueOfSearch = document.getElementById('date').value;
+
+        function init() {
+            table = document.getElementById("list");
+            movieCount = 0;
+
+            for (i = 0; i < newMovie.length; i++) {
+                //get items at random indices
+                
+                let name = newMovie[i].title;
+                let rank = newMovie[i].id;
+                let albumId = newMovie[i].albumId;
+
+                //new object
+                var movie = new Movie(name, rank, albumId);
+                movieList.push(movie);
+            }
+
+
+            //show the first 15 items in the table
+            for (i = movieCount; i < 5; i++) 
+            {
+                let row = table.insertRow();
+                
+                        row.style.color ="red";
+                        row.innerHTML = movieList[i].createCells();
+                movieCount++;
+            }
+            document.getElementById("next").style.visibility = "visible";
+            addListeners();
+        }
+
+        function addListeners() {
+            var nextBtn = document.getElementById("next");
+            next.addEventListener("click", function () {
+                nextPage();
+            });
+
+            var prevBtn = document.getElementById("prev");
+            prev.addEventListener("click", function () {
+                prevPage();
+            });
+        }
+
+        var countPage =1;
+        function nextPage() {
+           
+            if (movieCount < newMovie.length-1) {
+                removeCells();
+                a = movieCount + 4;
+                for (i = movieCount; i <= a; i++) {
+                    
+                    let row = table.insertRow();
+                    row.innerHTML = movieList[i].createCells();
+                    movieCount++;
+                    countPage++;
+                }
+                document.getElementById("prev").style.visibility = "visible";
+
+                if (movieCount === newMovie.length-1) {
+                    document.getElementById("next").style.visibility = "hidden";
+                }
+            }
+            
+        }
+
+        function prevPage() {
+            
+            if(countPage <=1)
+            {
+                alert("해당 페이지가 첫 페이지 입니다.");
+            }
+            else
+            {
+            if (movieCount => 10) {
+                removeCells();
+                movieCount -= 10;
+                a = movieCount + 4;
+                for (i = movieCount; i <= a; i++) {
+                    let row = table.insertRow();
+                    row.innerHTML = movieList[i].createCells();
+                    movieCount++;
+                }
+                document.getElementById("next").style.visibility = "visible";
+                
+                if (movieCount === 3) {
+                    document.getElementById("prev").style.visibility = "hidden";
+                }
+            }
+            }
+        }
+        function removeCells() {
+            while (table.hasChildNodes()) {
+                table.removeChild(table.childNodes[0]);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

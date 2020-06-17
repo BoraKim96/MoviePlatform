@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netflix 대한민국 - 영화에 대한 모든 것</title>
+    <link rel="shortcut icon" type="image⁄x-icon" href="titleLogo.jpg">
+    <link rel="stylesheet" href="start.css">
+</head>
+
+<body>
+    <button id="loginButton">로그인</button>
+    <nav id="topMenu">
+        <ul>
+            <img id="logo" class="menuLink" src="netflixLogo.png"><br>
+            <li><a class="menuLink" href="#">About us</a></li>
+            <li><a class="menuLink" href="contact.html">Friend List</a></li>
+            <li><a class="menuLink" href="search.html">Search Movies</a></li>
+            <li><a class="menuLink" href="#" onclick="openQuiz(event);">Quiz</a></li>
+            <li><a class="menuLink" href="MovieInfo.html">Movies</a></li>
+            <li><a class="menuLink" href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+    <article>
+    <div id="adv">
+        <div id="mainContent" class="content">
+            <br><br><br><br><br><br><br><br>
+            <h1 id="intro">영화, TV 프로그램을<br>무제한으로</h1>
+            <h1>다양한 디바이스에서 시청하세요. 언제든 해지하실 수 있습니다.</h1>
+            <input type="text" id="inputEmail" value="이메일 주소">
+            <button id="sendEmail">30 무료 이용</button><br>
+            <h3>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h3>
+        </div>
+    </div>
+</article>
+
+    <div id="questPanel" style="display:none">
+        <div id="introduce">
+            <br><br><br><br><br><br><br><br>
+            <h2>Are you interested in movie? <br>
+                And you want to test yourself?</h2>
+            <button id="startButton" onclick="processClick(event);">Just Click Me</button>
+        </div>
+
+        <div id="q1" style="display:none">
+            <br><br><br>
+            <img src="poster.jpeg" alt="poster" width="400px">
+            <br><br>
+            <h2>Which actor played in Titanic?</h2>
+
+            <form name="form1" method="post" action="">
+                <input type="radio" name="radiobox" value="radio1" /><label> Leonardo Di Caprio</label><br>
+                <input type="radio" name="radiobox" value="radio2" />Christian Bale<br>
+                <input type="radio" name="radiobox" value="radio3" />Nicolas Cage<br>
+                <br><br><br>
+            </form>
+
+            <button id="myButton" onclick="processClick1(event);">Click me!</button>
+            <br><br><br>
+            <h3 id="result"></h3>
+        </div>
+
+        <div id="q2" style="display:none">
+            <img src="Poster2.jpg" alt="poster" width="400px">
+            <br><br>
+            <h2>Which director is related with above poater?</h2>
+            Director Name : <input type="text" id="inputA" value="ex) 김보라"><br><br>
+
+            <button id="myButton1" onclick="processClick2(event);">Click me!</button>
+            <br><br><br>
+        </div>
+
+        <div id="q3" style="display:none">
+            
+            <img src="poster3.jpg" alt="poster" width="400px">
+            <br><br>
+            <h2>Which actress played in devil wears prada?</h2>
+            <!-- <form name="form3" method="post" action="">
+                <input type="checkbox" name="checkbox1" value="radio1" />Anne Jacqueline Hathaway<br>
+                <input type="checkbox" name="checkbox2" value="radio2" />meryl streep<br>
+                <input type="checkbox" name="checkbox3" value="radio3" />Amanda Seyfried<br>
+                <input type="checkbox" name="checkbox4" value="radio3" />Mamie Gummer<br>
+            
+            </form> -->
+            <button id="myButton2" onclick="processClick3(event);">Click me!</button>
+        </div>
+
+        <div>
+
+        </div>
+
+    </div>
+
+    <script>
+        //질문 값
+        var question = [
+                { value: "Anne", text: "Anne Hathaway" },
+                { value: "Meryl", text: "Meryl Streep" },
+                { value: "Amanda", text: "Amanda Seyfried" },
+                { value: "Mamie", text: "Mamie Gummer" }
+            ];
+        //정답 값
+        var answer=[["Anne","Meryl"]];
+
+        //선택 값
+        var values=[];
+
+        function openQuiz(evt) {
+
+            //document.getElementById('questPanel').style.display = "";
+            document.getElementById('questPanel').style.display = "";
+            document.getElementById('adv').style.display = "none";
+        }
+        function processClick(evt) {
+            //document.getElementById('introduce').remove();
+            document.getElementById('introduce').style.display="none";
+            console.log("remove 수정");
+            document.getElementById('q1').style.display = "";
+        }
+        function processClick1(evt) {
+
+            var f = document.form1;
+            var radioBox = f.radiobox;
+            var result = document.getElementById("result");
+            var str = "";
+
+            var checkBox = document.createElement("che")
+            for (var i = 0; i < radioBox.length; i++) {
+
+                if (radioBox[0].checked) {
+                    str = "정답입니다";
+
+                    //document.getElementById('q1').remove(null);
+                    
+                    str = "";
+                    alert("정답입니다");
+                    document.getElementById('q1').style.display="none";
+                    document.getElementById('q2').style.display = "";
+
+                }
+                else {
+                    str = "다시 시도해 주세요";
+                }
+            }
+            //결과
+            result.innerHTML = str;
+
+        };
+        function processClick2(evt) {
+
+            var str = "";
+            var inputA = document.getElementById("inputA").value;
+            var a = inputA;
+
+           
+            if (a === "봉준호") {
+                str = "정답입니다";
+                //document.getElementById('q2').remove(null);
+                document.getElementById('q2').style.display="none";
+                document.getElementById('q3').style.display = "";
+                alert("정답입니다");
+                init();
+            }
+            else {
+                str = "다시 시도해 주세요";
+            }
+
+            //결과
+            result.innerHTML = str;
+
+        };
+        function init(){
+            var div = document.querySelector("#q3");
+            div.innerHTML="";
+            values =[];
+
+            for(var c of question){
+                var chk = document.createElement("input");
+                chk.type ="checkbox";
+                chk.value = c.value;
+                chk.id = c.value;
+
+                var label = document.createElement("label");
+                label.htmlFor = c.value;
+                label.innerHTML = c.text;
+
+                chk.addEventListener("click", function(event){
+                                // 체크가 되면 값을 배열 넣음
+                        if(this.checked){
+                        values.push(this.value);
+                        console.log(values);
+                        } else {  // 체크를 해제하면 배열에서 삭제
+                        values.splice(values.indexOf(this.value), 1);
+                        console.log(values);
+                        }
+                        event.stopPropagation();
+                });
+
+                var innerDiv = document.createElement("div");
+          innerDiv.appendChild(chk);
+          innerDiv.appendChild(label);
+
+          div.appendChild(innerDiv);
+            }
+        }
+        
+        function processClick3(evt) {
+
+           
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netflix 대한민국 - 영화에 대한 모든 것</title>
+    <link rel="shortcut icon" type="image⁄x-icon" href="titleLogo.jpg">
+    <link rel="stylesheet" href="start.css">
+    <title>Working with remote data</title>
+    <meta charset="utf-8" />
+    <!-- Polyfill in case your browser does not support the fetch API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.1/fetch.js"></script>
+</head>
+
+
+
+<body>
+
+    <button id="loginButton">로그인</button>
+    <nav id="topMenu">
+        <ul>
+            <img id="logo" class="menuLink" src="netflixLogo.png"><br>
+            <li><a class="menuLink" href="#">About us</a></li>
+            <li><a class="menuLink" href="contact.html">Friend List</a></li>
+            <li><a class="menuLink" href="search.html">Search Movies</a></li>
+            <li><a class="menuLink" href="index.html">Quiz</a></li>
+            <li><a class="menuLink" href="MovieInfo.html">Movies</a></li>
+            <li><a class="menuLink" href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+
+    <div id="search">
+        <h1 id="info">Serach For Infromation of Movie</h1>
+        <p>Enter the Language [ex:한국어,일본어,영어]</p>
+        <input type="text" id="inputField" value="">
+
+        <button id="searchBtn">조회</button>
+        <button id="prevBtn">이전</button>
+        <button id="nextBtn">다음</button>
+        <br><br>
+        <div id="movie"></div>
+        <br><br>
+
+    </div>
+    <script>
+        var movieDiv = document.querySelector("#movie");
+        var searchButton = document.querySelector("#searchBtn");
+        var table = document.createElement("table");
+
+
+
+
+        var newMovie = [
+            {
+                "albumId": 1,
+                "id": 138,
+                "title": "HER",
+                "url": "insertPoster.jpg",
+                "thumbnailUrl": "insertPoster.jpg"
+            }, {
+                "albumId": 1,
+                "id": 139,
+                "title": "The Devils wears Prada",
+                "url": "poster3.jpg",
+                "thumbnailUrl": "poster3.jpg"
+            }, {
+                "albumId": 3,
+                "id": 140,
+                "title": "100 엔걸 스즈코",
+                "url": "poster11.jpg",
+                "thumbnailUrl": "poster11.jpg"
+            }, {
+                "albumId": 2,
+                "id": 141,
+                "title": "친절한 금자씨",
+                "url": "poster12.jpg",
+                "thumbnailUrl": "poster12.jpg"
+            }, {
+                "albumId": 2,
+                "id": 142,
+                "title": "윤희에게",
+                "url": "poster13.jpg",
+                "thumbnailUrl": "poster13.jpg"
+            }, {
+                "albumId": 1,
+                "id": 1,
+                "title": "HarryPotter",
+                "url": "poster1.jpg",
+                "thumbnailUrl": "poster1.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 2,
+                "title": "NoteBook",
+                "url": "poster4.jpg",
+                "thumbnailUrl": "poster4.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 51,
+                "title": "PARASITE",
+                "url": "poster5.jpg",
+                "thumbnailUrl": "poster5.jpg"
+            },
+            {
+                "albumId": 2,
+                "id": 52,
+                "title": "The Handmaiden",
+                "url": "poster6.jpg",
+                "thumbnailUrl": "poster6.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 127,
+                "title": "벼랑 위의 포뇨",
+                "url": "poster7.jpg",
+                "thumbnailUrl": "poster7.jpg"
+            },
+            {
+                "albumId": 1,
+                "id": 128,
+                "title": "어바웃 타임",
+                "url": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg",
+                "thumbnailUrl": "https://joyposter.cafe24.com/A2poster/ARO/ARO-022.jpg"
+            },
+            {
+                "albumId": 3,
+                "id": 129,
+                "title": "혐오스런 마츠코의 일생",
+                "url": "poster11.jpeg",
+                "thumbnailUrl": "poster11.jpeg"
+            }];
+
+        function init() {
+            console.log("page loaded");
+
+        }
+
+
+        var select = document.getElementById("selectBox");
+        var notice = document.getElementById("info");
+        movieDiv.innerHTML = "";
+
+        searchButton.addEventListener("click", function search() {
+
+            //계속 값을 초기화 해준다
+            movieDiv.innerHTML = "";
+            var selctedValue = document.getElementById('inputField').value;
+            // 데이터가 들어갈 테이블 생성
+            var table = document.createElement("table");
+            // 조회 할 데이터가 3개인데 이 3개의 헤더를 만들어 준다
+            var header = table.createTHead();
+            var row = header.insertRow(0);
+            var cell = row.insertCell(0);
+            var cell1 = row.insertCell(1);
+            cell.innerHTML = "랭킹";
+            cell1.innerHTML = "제목";
+
+            //  for, of를 통해 list 에 있는 컬럼의 종류를 받아온다.
+            for (var item of newMovie) {
+
+                var header = table.createTHead();
+                var row = table.insertRow();
+                // 그 컬럼으로 데이터 값을 읽어온다
+                for (var value in item) {
+
+                    // // 이 방법을 사용해 볼것
+                    // array.indexOf(객체)-1;
+
+                    //필요한 데이터에 조건을 걸어준 후 조회한다
+                    if (value === "title" || value === "id") {
+
+                        // 맞는 데이터 테이블 위치에 값을 넣어준다.
+                        var cell = row.insertCell();
+                        if (selctedValue === "영어") {
+                            if (item.albumId == 1) 
+                            {
+                                cell.style.color = "black";
+                                cell.style.background = "white";
+                                //notice.innerText = "영문이 지원되는 영화 목록입니다.";
+
+                            } 
+                        }
+                        else if (selctedValue === "한국어") 
+                            {
+                                if (item.albumId == 2) 
+                                {
+                                    cell.style.color = "black";
+                                    cell.style.background = "white";
+                                    //notice.innerText = "한국어가 지원되는 영화 목록입니다.";
+
+                                }
+                            }
+                            else if (selctedValue === "일본어") {
+                                if (item.albumId == 3) {
+                                    cell.style.color = "black";
+                                    cell.style.background = "white";
+                                    //notice.innerText = "일본어가 지원되는 영화 목록입니다.";
+                                }
+                            }
+                            else {
+                                notice.innerText = "입력하신 걸로 조회되는 데이터가 없습니다.";
+
+                            }
+                        cell.innerHTML = item[value];
+                    }
+                }
+            }
+            movieDiv.appendChild(table);
+        });
+    </script>
+</body>
+
+</html>
